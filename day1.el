@@ -16,6 +16,8 @@
 
 ;;; Code:
 
+(require 'cl)
+
 (defun day1-part1 (input-sequence)
   "Determine the sum of the digits which match the next digit in INPUT-SEQUENCE."
   (interactive "sSequence: ")
