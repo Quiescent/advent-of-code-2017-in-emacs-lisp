@@ -37,7 +37,7 @@
   (message (format "%s"
                    (apply #'+
                           (mapcar (lambda (xs) (apply #'/ xs))
-                                  (mapcar #'find-even-dividers (tokenise-matrix input)))))))
+                                  (mapcar #'find-even-dividers (parse-tokenise-matrix input)))))))
 
 (provide 'day2-with-library-functions)
 ;;; day2-with-library-functions ends here
