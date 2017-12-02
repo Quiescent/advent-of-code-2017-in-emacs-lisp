@@ -16,6 +16,8 @@
 
 ;;; Code:
 
+(require 'parse)
+
 (defun day8-part-1 (input)
   "Solve day 8 for INPUT."
   (interactive "sInput: ")
