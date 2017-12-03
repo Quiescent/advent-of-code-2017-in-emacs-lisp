@@ -2,18 +2,6 @@
 
 ;;; Commentary:
 
-;; First Part
-
-;; Input:
-
-;; Solution:
-
-;; Second Part
-
-;; Input:
-
-;; Solution:
-
 ;;; Code:
 
 (require 'parse)
