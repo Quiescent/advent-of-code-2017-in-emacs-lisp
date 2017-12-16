@@ -102,12 +102,12 @@ work on it from home."
         (current-b b)
         (matches   0))
     (dotimes (_ 5000000 matches)
-      (setq current-a (logand (* current-a 16807) 2147483647))
-      (setq current-b (logand (* current-b 48271) 2147483647))
+      (setq current-a (mod (* current-a 16807) 2147483647))
+      (setq current-b (mod (* current-b 48271) 2147483647))
       (while (/= (logand current-a 3) 0)
-        (setq current-a (logand (* current-a 16807) 2147483647)))
+        (setq current-a (mod (* current-a 16807) 2147483647)))
       (while (/= (logand current-b 7) 0)
-        (setq current-b (logand (* current-b 48271) 2147483647)))
+        (setq current-b (mod (* current-b 48271) 2147483647)))
       (when (eq (logand current-a 65535)
                 (logand current-b 65535))
         (incf matches)))))
@@ -117,7 +117,7 @@ work on it from home."
   (interactive "sInput: ")
   (let* ((lines  (parse-lines input))
          (starts (mapcar (lambda (line) (string-to-number (nth 4 (split-string line " ")))) lines)))
-    (message "%s" (apply #'generate-multiples-of-4-and-8 starts))))
+    (message "%s" (apply #'generate-multiples-of-4-and-8-faster starts))))
 
 ;; Solution: 336
 
