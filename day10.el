@@ -63,26 +63,28 @@ XS is circular and REV-LEN can wrap."
   (concat (nth (/ number 16) hex-numbers)
           (nth (mod number 16) hex-numbers)))
 
-(defun day10-part-2 (input)
-  "Solve day 9 part 2 for INPUT."
-  (interactive "sInput: ")
+(defun knot-hash (input)
   (let* ((lengths (seq-concatenate 'list (string-to-list input) '(17 31 73 47 23)))
          (idx 0)
          (skip 0)
          (numbers (let (xs)
                     (dotimes (i 256 (reverse xs))
                       (push i xs)))))
-    (message "%s"
-             (mapconcat #'to-hex
-                        (mapcar (lambda (sub-list) (apply #'logxor sub-list))
-                                (seq-partition
-                                 (dotimes (_ 64 numbers)
-                                   (dolist (length lengths)
-                                     (setq numbers (reverse-length numbers length idx))
-                                     (setq idx  (mod (+ idx (+ length skip)) (length numbers)))
-                                     (incf skip)))
-                                 16))
-                        ""))))
+    (mapconcat #'to-hex
+               (mapcar (lambda (sub-list) (apply #'logxor sub-list))
+                       (seq-partition
+                        (dotimes (_ 64 numbers)
+                          (dolist (length lengths)
+                            (setq numbers (reverse-length numbers length idx))
+                            (setq idx  (mod (+ idx (+ length skip)) (length numbers)))
+                            (incf skip)))
+                        16))
+               "")))
+
+(defun day10-part-2 (input)
+  "Solve day 9 part 2 for INPUT."
+  (interactive "sInput: ")
+  (message "%s" (knot-hash input)))
 
 ;; Solution: 9d5f4561367d379cfbf04f8c471c0095
 
