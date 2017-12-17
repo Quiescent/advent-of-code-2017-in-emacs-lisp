@@ -2,6 +2,14 @@
 
 ;;; Commentary:
 
+;; This solution isn't particularly fast.  I suspect that some clever
+;; maths will get you further.  My reasoning for switching to the
+;; circular list is because it's running time is proportional to 367
+;; (my input) times 50000000.  The vector implementation has quadratic
+;; complexity in 50000000, so the list is almost definitely better.
+;; It took about 20m to compute though so I'm not too happy about
+;; that.
+
 ;;; Code:
 
 (require 'parse)
