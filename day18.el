@@ -37,6 +37,7 @@
 (require 'parse)
 (eval-when-compile
   (require 'cl))
+(require 'seq)
 
 ;; Part 1:
 
@@ -71,6 +72,12 @@
      `(RCV ,(parse-argument x)))
     (`("jgz" ,x ,y)
      `(JGZ ,(parse-argument x)
+           ,(parse-argument y)))
+    (`("jnz" ,x ,y)
+     `(JNZ ,(parse-argument x)
+           ,(parse-argument y)))
+    (`("sub" ,x ,y)
+     `(SUB ,(parse-argument x)
            ,(parse-argument y)))))
 
 (defun parse-instructions (lines)
@@ -80,6 +87,30 @@
 (defun make-registers ()
   "Make a register bank."
   (make-vector 256 nil))
+
+(defun make-registers-init-0 ()
+  "Create a register bank with values initialised to zero."
+  (make-vector 256 0))
+
+(defun copy-register-bank (register-bank)
+  "Copy REGISTER-BANK."
+  (seq-subseq register-bank 0))
+
+(defun add-register-banks (register-bank-1 register-bank-2)
+  "Add the corresponding registers in REGISTER-BANK-1 and REGISTER-BANK-2.
+
+Produces a new register bank."
+  (cl-map 'vector #'+ register-bank-1 register-bank-2))
+
+(defun subtract-register-banks (register-bank-1 register-bank-2)
+  "Subtract the corresponding registers in REGISTER-BANK-1 and REGISTER-BANK-2.
+
+Produces a new register bank."
+  (cl-map 'vector #'- register-bank-1 register-bank-2))
+
+(defun scalar-multiply-register (register-bank scalar)
+  "Multiply each register value in REGISTER-BANK by SCALAR."
+  (cl-map 'vector (apply-partially #'* scalar) register-bank))
 
 (defmacro make-number (x)
   "Create a number from X.
